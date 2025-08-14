@@ -11,3 +11,7 @@ logs/
 .idea/
 coverage/
 .nyc_output/
+
+# API environment files
+.env.development
+.env.staging

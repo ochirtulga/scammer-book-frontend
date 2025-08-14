@@ -51,7 +51,7 @@ export const Homepage: React.FC<HomepageProps> = ({ className = '' }) => {
           </div>
 
           {/* Simplified footer info */}
-          {/* <MinimalFooterInfo className="mt-20" /> */}
+          <MinimalFooterInfo className="mt-20" />
         </div>
       </Container>
     </Layout>
