@@ -7,7 +7,7 @@ interface BadActor {
   email: string;
   phone: string;
   company: string | null;
-  scamType: string;
+  actions: string;
   description?: string;
   reportedBy?: string;
   createdAt: string;

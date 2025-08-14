@@ -162,7 +162,7 @@ const SearchResultRow: React.FC<SearchResultRowProps> = ({ badActor, isEven }) =
       
       <td className="py-4 px-2">
         <span className="inline-block px-2 py-1 text-xs font-light text-slate-600 bg-slate-100 tracking-wide">
-          {badActor.scamType}
+          {badActor.actions}
         </span>
       </td>
       
@@ -234,7 +234,7 @@ const SearchResultCard: React.FC<SearchResultCardProps> = ({ badActor }) => {
     });
   };
 
-  const getScamTypeColor = (scamType: string) => {
+  const getActionsColor = (actions: string) => {
     const colors: Record<string, string> = {
       'Tech Support': 'bg-blue-100 text-blue-800',
       'Romance': 'bg-pink-100 text-pink-800',
@@ -244,7 +244,7 @@ const SearchResultCard: React.FC<SearchResultCardProps> = ({ badActor }) => {
       'Shopping': 'bg-purple-100 text-purple-800',
       'Government': 'bg-gray-100 text-gray-800',
     };
-    return colors[scamType] || 'bg-gray-100 text-gray-800';
+    return colors[actions] || 'bg-gray-100 text-gray-800';
   };
 
   return (
@@ -257,8 +257,8 @@ const SearchResultCard: React.FC<SearchResultCardProps> = ({ badActor }) => {
               <h3 className="text-lg font-medium text-slate-900 mb-1">{badActor.name}</h3>
             )}
             <div className="flex items-center space-x-2">
-              <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getScamTypeColor(badActor.scamType)}`}>
-                {badActor.scamType}
+              <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getActionsColor(badActor.actions)}`}>
+                {badActor.actions}
               </span>
               <span className="text-sm text-slate-500">•</span>
               <span className="text-sm text-slate-500">Reported {formatDate(badActor.createdAt)}</span>

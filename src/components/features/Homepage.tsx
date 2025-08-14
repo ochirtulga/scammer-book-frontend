@@ -2,6 +2,7 @@ import React from 'react';
 import { Layout, Container } from '../layout/Layout';
 import { HeroSection } from './HeroSection';
 import { SearchForm } from './SearchForm';
+import { SearchResults } from './SearchResults';
 import { PopularSearches } from './PopularSearches';
 import { RecentReports } from './RecentReports';
 import { useSearch } from '../../hooks/useSearch';
@@ -11,7 +12,7 @@ interface HomepageProps {
 }
 
 export const Homepage: React.FC<HomepageProps> = ({ className = '' }) => {
-  const { searchState, updateQuery, updateFilter, performSearch } = useSearch();
+  const { searchState, updateQuery, updateFilter, performSearch, loadNextPage, loadPreviousPage } = useSearch();
 
   const handlePopularSearchSelect = (search: string) => {
     updateQuery(search);
@@ -28,12 +29,17 @@ export const Homepage: React.FC<HomepageProps> = ({ className = '' }) => {
     // TODO: Navigate to report details or show modal
   };
 
+  // Show search results if we have searched or are searching
+  const showSearchResults = searchState.hasSearched || searchState.isLoading;
+
   return (
     <Layout onLogoClick={handleLogoClick} className={className}>
       <Container size="md">
         <div className="py-16">
-          {/* Hero Section */}
-          <HeroSection className="mb-16" />
+          {/* Hero Section - hide when showing results */}
+          {!showSearchResults && (
+            <HeroSection className="mb-16" />
+          )}
           
           {/* Search Form */}
           <SearchForm
@@ -41,17 +47,36 @@ export const Homepage: React.FC<HomepageProps> = ({ className = '' }) => {
             onQueryChange={updateQuery}
             onFilterChange={updateFilter}
             onSearch={performSearch}
-            className="mb-20"
+            className={showSearchResults ? "mb-12" : "mb-20"}
           />
 
-          {/* Content Grid - More spacing, cleaner layout */}
-          <div className="grid md:grid-cols-2 gap-16 max-w-4xl mx-auto">
-            <PopularSearches onSearchSelect={handlePopularSearchSelect} />
-            <RecentReports onReportClick={handleReportClick} />
-          </div>
+          {/* Search Results */}
+          {showSearchResults && (
+            <SearchResults
+              results={searchState.results}
+              pagination={searchState.pagination}
+              message={searchState.lastSearchMessage}
+              isLoading={searchState.isLoading}
+              error={searchState.error}
+              hasSearched={searchState.hasSearched}
+              onNextPage={loadNextPage}
+              onPreviousPage={loadPreviousPage}
+              className="mb-12"
+            />
+          )}
 
-          {/* Simplified footer info */}
-          <MinimalFooterInfo className="mt-20" />
+          {/* Content Grid - only show when not displaying search results */}
+          {!showSearchResults && (
+            <>
+              <div className="grid md:grid-cols-2 gap-16 max-w-4xl mx-auto">
+                <PopularSearches onSearchSelect={handlePopularSearchSelect} />
+                <RecentReports onReportClick={handleReportClick} />
+              </div>
+
+              {/* Simplified footer info */}
+              <MinimalFooterInfo className="mt-20" />
+            </>
+          )}
         </div>
       </Container>
     </Layout>
