@@ -21,12 +21,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 }) => {
   return (
     <div className={`text-center ${className}`}>
-      <h1 className="text-6xl md:text-7xl font-bold text-slate-900 mb-6 tracking-tight">
-        <span className="text-red-600">{title.word1}</span>{' '}
-        <span className="text-slate-900">{title.word2}</span>{' '}
-        <span className="text-slate-700">{title.word3}</span>
+      {/* Simplified single-color title */}
+      <h1 className="text-5xl md:text-6xl font-light text-slate-900 mb-6 tracking-tight">
+        {title.word1} {title.word2} {title.word3}
       </h1>
-      <p className="text-xl text-slate-600 max-w-2xl mx-auto mb-12 leading-relaxed">
+      
+      {/* Cleaner subtitle */}
+      <p className="text-lg text-slate-600 max-w-xl mx-auto mb-16 font-light leading-relaxed">
         {subtitle}
       </p>
     </div>

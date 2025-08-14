@@ -16,11 +16,11 @@ export const Layout: React.FC<LayoutProps> = ({
   className = '',
   containerClassName = '',
   showHeader = true,
-  showFooter = true,
+  showFooter = false,
   onLogoClick,
 }) => {
   return (
-    <div className={`min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex flex-col ${className}`}>
+    <div className={`min-h-screen bg-white flex flex-col ${className}`}>
       {/* Header */}
       {showHeader && <Header onLogoClick={onLogoClick} />}
       
@@ -57,7 +57,7 @@ export const Container: React.FC<ContainerProps> = ({
     full: 'max-w-none',
   };
 
-  const paddingClasses = padding ? 'px-4 sm:px-6 lg:px-8' : '';
+  const paddingClasses = padding ? 'px-6 sm:px-8 lg:px-12' : '';
 
   return (
     <div className={`${sizes[size]} mx-auto ${paddingClasses} ${className}`}>
